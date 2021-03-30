@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/calorias")
 public class CaloriasController{
@@ -20,5 +22,11 @@ public class CaloriasController{
 
     @PostMapping("/")
     public ResponseEntity obtenerCalorias(@RequestBody PlatoDTO plato){
-        return new ResponseEntity(caloriasService.obtenerCalorias(plato), HttpStatus.OK); }
+        return new ResponseEntity(caloriasService.obtenerCalorias(plato), HttpStatus.OK);
+    }
+
+    @PostMapping("/lista")
+    public ResponseEntity obtenerCaloriasPorPlato(@RequestBody List<PlatoDTO> platos){
+        return new ResponseEntity(caloriasService.obtenerCaloriasPorPlato(platos), HttpStatus.OK);
+    }
 }

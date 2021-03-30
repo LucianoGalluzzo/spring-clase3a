@@ -40,6 +40,14 @@ public class CaloriasServiceImpl implements CaloriasService{
         return new ResponseDTO(resultado, list, ingMax);
     }
 
+    @Override
+    public List<ResponseDTO> obtenerCaloriasPorPlato(List<PlatoDTO> platos) {
+        List<ResponseDTO> list = new ArrayList<>();
+        for(PlatoDTO p: platos){
+            list.add(obtenerCalorias(p));
+        }
+        return list;
+    }
 
 
 }
