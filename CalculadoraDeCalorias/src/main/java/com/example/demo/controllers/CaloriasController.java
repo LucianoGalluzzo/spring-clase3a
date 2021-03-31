@@ -2,6 +2,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.PlatoDTO;
+import com.example.demo.exceptionHandler.NotFoundIngredientException;
 import com.example.demo.services.CaloriasServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,13 @@ public class CaloriasController{
     private CaloriasServiceImpl caloriasService;
 
     @PostMapping("/")
-    public ResponseEntity obtenerCalorias(@RequestBody PlatoDTO plato){
+    public ResponseEntity obtenerCalorias(@RequestBody PlatoDTO plato) throws NotFoundIngredientException {
         return new ResponseEntity(caloriasService.obtenerCalorias(plato), HttpStatus.OK);
     }
 
     @PostMapping("/lista")
-    public ResponseEntity obtenerCaloriasPorPlato(@RequestBody List<PlatoDTO> platos){
+    public ResponseEntity obtenerCaloriasPorPlato(@RequestBody List<PlatoDTO> platos) throws NotFoundIngredientException {
         return new ResponseEntity(caloriasService.obtenerCaloriasPorPlato(platos), HttpStatus.OK);
     }
+
 }

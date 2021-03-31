@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.dto.IngredienteDTO;
 import com.example.demo.dto.PlatoDTO;
 import com.example.demo.dto.ResponseDTO;
+import com.example.demo.exceptionHandler.NotFoundIngredientException;
 import com.example.demo.repositories.CaloriaRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class CaloriasServiceImpl implements CaloriasService{
     }
 
     @Override
-    public ResponseDTO obtenerCalorias(PlatoDTO plato) {
+    public ResponseDTO obtenerCalorias(PlatoDTO plato) throws NotFoundIngredientException {
         double resultado=0, max=0, aux=0;
         IngredienteDTO ingMax = null;
         List<IngredienteDTO> list = new ArrayList<>();
@@ -41,7 +42,7 @@ public class CaloriasServiceImpl implements CaloriasService{
     }
 
     @Override
-    public List<ResponseDTO> obtenerCaloriasPorPlato(List<PlatoDTO> platos) {
+    public List<ResponseDTO> obtenerCaloriasPorPlato(List<PlatoDTO> platos) throws NotFoundIngredientException {
         List<ResponseDTO> list = new ArrayList<>();
         for(PlatoDTO p: platos){
             list.add(obtenerCalorias(p));

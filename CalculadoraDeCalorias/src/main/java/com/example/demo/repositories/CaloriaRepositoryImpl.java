@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
 import com.example.demo.dto.CaloriaDTO;
+import com.example.demo.exceptionHandler.NotFoundIngredientException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ public class CaloriaRepositoryImpl implements CaloriaRepository {
 
 
     @Override
-    public CaloriaDTO findCaloriesByName(String name) {
+    public CaloriaDTO findCaloriesByName(String name) throws NotFoundIngredientException {
         List<CaloriaDTO> caloriaDTOs = null;
         caloriaDTOs = loadDataBase();
         CaloriaDTO result = null;
@@ -25,6 +26,9 @@ public class CaloriaRepositoryImpl implements CaloriaRepository {
                     .findFirst();
             if (item.isPresent())
                 result = item.get();
+            else{
+                throw new NotFoundIngredientException(name);
+            }
         }
 
         return result;
